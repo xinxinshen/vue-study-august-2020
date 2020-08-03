@@ -5,24 +5,31 @@ import Vue from 'vue'
 function create(Component, props) {
     // 1. 创建构造器
     const Comp = Vue.extend(Component);
-    // 2. 通过propsData将props传入，并创建Comp实例；
-    const vm = new Comp({
-        propsData:{
-            ...props,
-            remove:()=>{
-                document.body.removeChild(vm.$el)
-                vm.$destroy()
-            }
-        }
+    // 2. 通过propsData将props传入，并创建Comp实例；得到VueComponent的实例
+    // comp.children空的
+    const comp = new Comp({
+        propsData:props
     // 3. 调用$mount方法，不传参，将vnode转化为真实node
     }).$mount();
+    comp.remove = (cb)=>{
+        document.body.removeChild(comp.$el) 
+        cb&&cb();
+        comp.$destroy()
+    }
     // 4. append到body最下方
-    document.body.appendChild(vm.$el)
-    return vm;
+    document.body.appendChild(comp.$el)
+    return comp;
 }
 export default create
 
-
+/**
+ * 知识点：
+ * const vm = new Vue()
+ * 1. vm 是Vue实例, 根实例   Vue
+ * 2. 根实例
+ * 3. App 根组件，根组件实例化以后变成根实例
+ * 4. vm.children[0]根组件的实例化结果    VueComponent
+ */
 
 // // Component - 组件配置对象
 // // props - 传递给它的属性

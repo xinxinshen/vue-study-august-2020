@@ -8,37 +8,52 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            title: {
-                type: String,
-                default: '',
-            },
-            message: {
-                type: String,
-                default: '',
-            },
-            duration: {
-                type: Number,
-                default: 1000,
-            }
+import store from '@/store/index';
+export default {
+    props: {
+        title: {
+            type: String,
+            default: '',
         },
-        data() {
-            return {
-                isShow: false,
-            }
+        message: {
+            type: String,
+            default: '',
         },
-        methods: {
-            show() {
-                this.isShow = true;
-                setTimeout(this.hide, this.duration);
-            },
-            hide() {
-                this.isShow = false;
-                this.remove();
+        duration: {
+            type: Number,
+            default: 1000,
+        }
+    },
+    store,
+    data() {
+        return {
+            isShow: false,
+        }
+    },
+    methods: {
+        show() {
+            this.isShow = true;
+            console.log(this.$store.state.isLogin);
+            if(this.$store.state.isLogin) {
+                this.$store.commit('logout');
+              
+            } else {
+                // this.$store.commit('login');
+                  this.$store.dispatch('login', 'admn').then(()=>{
+                    console.log('successa');
+                }).catch(()=>{
+                    console.log('fail');
+                });
             }
+
+            setTimeout(this.hide, this.duration);
+        },
+        hide() {
+            this.isShow = false;
+            this.remove();
         }
     }
+}
 </script>
 
 <style scoped>

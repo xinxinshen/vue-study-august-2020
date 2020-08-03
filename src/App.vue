@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import formTest from './components/form/index.vue'
+import formTest from './components/recursive/index.vue'
 
 export default {
   name: 'app',

@@ -22,50 +22,55 @@
 import KInput from '@/components/form/KInput.vue';
 import KFormItem from '@/components/form/KFormItem.vue';
 import KForm from '@/components/form/KForm.vue';
-import Notice from '@/components/Notice.vue';
-import create from '@/utils/create';
-    export default {
-        data() {
-            return {
-                model: {
-                    username: '',
-                    password: '',
-                },
-                rules: {
-                    username: [{
-                        required: true,
-                        message: '必须输入用户名'
-                    }],
-                    password: [{
-                        required: true,
-                        message: '必须输入密码'
-                    }
-                    ]
-                },
-            }
-        },
-        components: {
-            KInput,
-            KFormItem,
-            KForm,
-        }, 
-        methods: {
-            login() {
-                this.$refs.loginForm.validate(isValid=>{
-                    create(Notice,{
-                        title: 'tishi',
-                        message: isValid ?'请求登录': '校验失败',
-                        duration: 3000,
-                    }).show();
-                    // if(isValid) {
-                    //     console.log('提交登录')
-                    // } else {
-                    //     console.log('失败');
-                    // }
-                });
-            }
+// import Notice from '@/components/Notice.vue';
+// import create from '@/utils/create';
+export default {
+    data() {
+        return {
+            model: {
+                username: '',
+                password: '',
+            },
+            rules: {
+                username: [{
+                    required: true,
+                    message: '必须输入用户名'
+                }],
+                password: [{
+                    required: true,
+                    message: '必须输入密码'
+                }
+                ]
+            },
+        }
+    },
+    components: {
+        KInput,
+        KFormItem,
+        KForm,
+    }, 
+    methods: {
+        login() {
+            this.$refs.loginForm.validate(isValid=>{
+                // create(Notice,{
+                //     title: 'tishi',
+                //     message: isValid ?'请求登录': '校验失败',
+                //     duration: 1000,
+                // }).show();
+                this.$notice({
+                    title: 'tishi',
+                    message: isValid ?'请求登录': '校验失败',
+                    duration: 1000,
+                })
+                // if(isValid) {
+                //     console.log('提交登录')
+                // } else {
+                //     console.log('失败');
+                // }
+            });
         }
     }
+}
 </script>
 
 <style>
