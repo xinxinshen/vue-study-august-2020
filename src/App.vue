@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <formTest></formTest>
+    <!-- <formTest></formTest> -->
+    <router-link to="/home" >home</router-link>| <router-link to="/about" >About</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import formTest from './components/recursive/index.vue'
+// import formTest from './components/recursive/index.vue'
 
 export default {
   name: 'app',
   components: {
-    formTest,
+    // formTest,
   }
 }
 </script>
